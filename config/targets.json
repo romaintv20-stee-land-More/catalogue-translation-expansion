@@ -1,0 +1,65 @@
+{
+  "project_version": "0.1.0-test",
+  "targets": [
+    {
+      "id": "mc1.16.5-forge",
+      "minecraft": "1.16.5",
+      "catalogue": "1.6.1",
+      "loader": "forge",
+      "loader_version": "36",
+      "java_upstream": 8,
+      "generation": "g1-legacy-forge-3",
+      "resource_pack_format": 6
+    },
+    {
+      "id": "mc1.21.11-forge",
+      "minecraft": "1.21.11",
+      "catalogue": "1.12.3",
+      "loader": "forge",
+      "loader_version": "61",
+      "java_upstream": 21,
+      "generation": "g5-modern-32",
+      "resource_pack_format": 75
+    },
+    {
+      "id": "mc1.21.11-fabric",
+      "minecraft": "1.21.11",
+      "catalogue": "1.12.3",
+      "loader": "fabric",
+      "loader_version": "0.18.2",
+      "java_upstream": 21,
+      "generation": "g5-modern-32",
+      "resource_pack_format": 75
+    },
+    {
+      "id": "mc1.21.11-neoforge",
+      "minecraft": "1.21.11",
+      "catalogue": "1.12.3",
+      "loader": "neoforge",
+      "loader_version": "21.11",
+      "java_upstream": 21,
+      "generation": "g5-modern-32",
+      "resource_pack_format": 75
+    },
+    {
+      "id": "mc26.2-fabric",
+      "minecraft": "26.2",
+      "catalogue": "1.12.3",
+      "loader": "fabric",
+      "loader_version": "0.19.3",
+      "java_upstream": 25,
+      "generation": "g6-26x-34",
+      "resource_pack_format": 88
+    },
+    {
+      "id": "mc26.2-neoforge",
+      "minecraft": "26.2",
+      "catalogue": "1.12.3",
+      "loader": "neoforge",
+      "loader_version": "26.2",
+      "java_upstream": 25,
+      "generation": "g6-26x-34",
+      "resource_pack_format": 88
+    }
+  ]
+}
