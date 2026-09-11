@@ -1,0 +1,22 @@
+{
+  "minecraft_version": "1.16.5",
+  "catalogue_branch": "1.16.X",
+  "generation": "g1-legacy-forge-3",
+  "raw_minecraft_language_entries": 125,
+  "source_locale": "en_us",
+  "selection_policy": {
+    "one_primary_variant_per_language_for_now": true,
+    "exclude_novelty_or_fictional_entries": true,
+    "keep_distinct_real_regional_languages": true,
+    "keep_serious_nonfictional_constructed_languages": true,
+    "low_confidence_policy": "Use the exact English source strings as a documented fallback rather than inventing an unreliable translation.",
+    "upstream_policy": "Do not ship keys already present upstream for the exact Minecraft/Catalogue target."
+  },
+  "novelty_or_fictional_excluded": ["en_pt", "en_ud", "enp", "enws", "lol_us", "qya_aa", "tlh_aa", "tzl_tzl"],
+  "variants_deferred": ["bar", "brb", "de_at", "de_ch", "en_au", "en_ca", "en_gb", "en_nz", "es_ar", "es_cl", "es_ec", "es_mx", "es_uy", "es_ve", "esan", "fr_ca", "fra_de", "ksh", "nl_be", "nn_no", "pt_pt", "swg", "sxu", "tl_ph", "val_es", "zh_tw"],
+  "upstream_provided_on_1_16_5": ["de_de", "it_it"],
+  "addon_language_file_count": 89,
+  "translated_locale_count": 69,
+  "english_fallback_count": 20,
+  "english_fallback_locales": ["br_fr", "fo_fo", "got_de", "gv_im", "haw_us", "isv", "jbo_en", "kab_kab", "kw_gb", "li_li", "mi_nz", "moh_ca", "nds_de", "nuk", "oj_ca", "ovd", "scn", "se_no", "szl", "vec_it"]
+}
