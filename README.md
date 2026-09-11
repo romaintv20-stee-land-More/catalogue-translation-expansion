@@ -1,56 +1,38 @@
 # Catalogue Translation Expansion
 
-**Catalogue Translation Expansion** is a client-side localization add-on for [Catalogue](https://github.com/MrCrayfish/Catalogue) by MrCrayfish.
+Client-side localization expansion for [Catalogue](https://github.com/MrCrayfish/Catalogue), covering its Forge, Fabric and NeoForge generations. The project adds translations only; it does not add gameplay content.
 
-The project extends Catalogue's localization without copying or blindly replacing upstream translations. It tracks real localization generations, the Minecraft languages available to each target version, and produces loader-specific resource-only JARs.
+## Maintainers and future ChatGPT sessions
 
-## Current phase
+**Read [`PROJECT_STATUS.md`](PROJECT_STATUS.md) first.** It is the canonical handoff containing the audited version history, six localization generations, language policy, release grouping, licensing decisions, QA state and update procedure.
 
-Initial upstream audit + build scaffold.
+Then read [`docs/UPDATING.md`](docs/UPDATING.md) before adding support for a new Catalogue/Minecraft release.
 
-- 6 localization generations: **3 / 11 / 14 / 30 / 32 / 34 keys**
-- audited Minecraft span: **1.16.5 → 26.2**
-- current 26.2 target set: **137 translation targets**
-- loaders: Forge, Fabric, NeoForge where Catalogue actually supports them
-- G1 / Minecraft 1.16.5 scope: **91 primary real-language locales** (89 supplied by this add-on + 2 already supplied by Catalogue)
-- G1 translated now: **69 locales**; **20 low-confidence locales** intentionally retain documented English fallback pending review
-- build policy: **separate JAR per loader and Minecraft target**
-- official Catalogue keys are protected by default; deliberate overrides require an explicit allowlist
+## Current scope
 
-## Initial test targets
+- audited Minecraft span: **1.16.5 → 26.2** (as of 2026-09-11)
+- **6** localization generations: 3 / 11 / 14 / 30 / 32 / 34 keys
+- **13** grouped release JARs
+- **108** primary real-language locale codes across the historical union
+- **101** primary locales in the current 26.2 policy
+- **38** complete modern-union translations
+- documented English fallback for low-confidence rare locales
 
-- Minecraft 1.16.5: Forge
-- Minecraft 1.21.11: Forge / Fabric / NeoForge
-- Minecraft 26.2: Fabric / NeoForge
+## Build
 
-The localization payload can be shared internally, but loader metadata, version constraints and Catalogue loader availability differ. A single cross-loader JAR is therefore not assumed safe.
-
-## Development
+Requirements: Python 3.11+ and JDK 21+.
 
 ```bash
-python scripts/qa.py
-python scripts/build.py --all
-python scripts/inspect_jars.py
+python scripts/build_release.py
 ```
 
-Generated artifacts are written to `dist/`.
+Build outputs are generated into `dist/`; generated localization snapshots go into `generated_sources/`.
 
-## Repository layout
+## Translation sources
 
-- `audit/` — upstream/version/language audit
-- `sources/` — authoritative `en_us` by localization generation
-- `translations/` — translations by generation
-- `config/targets.json` — loader/Minecraft build targets
-- `config/overrides-allowlist.json` — intentional upstream collisions (empty by default)
-- `scripts/` — QA, build and JAR inspection
-- `docs/TRANSLATION_METHOD.md` — translation/reuse/AI policy
+- `translations/g1-legacy-forge-3/` — historical G1 translations
+- `translations/modern-union/` — complete 36-key translations for fully translated modern locales
 
-## AI-assisted translations
+## License
 
-Some translations may be generated or assisted by AI. They are subject to the same structural QA as human translations and may be left as documented English fallbacks when reliable translation quality cannot be reached.
-
-## License and attribution
-
-This project is licensed under **GPL-3.0-only**. See `LICENSE` and `THIRD_PARTY_NOTICES.md`.
-
-Catalogue remains the work of MrCrayfish. This is an independent add-on and is not an official Catalogue project.
+GPL-3.0-only. Catalogue remains the work of MrCrayfish; this is an independent add-on.
