@@ -1,0 +1,106 @@
+[
+  {
+    "file": "CatalogueTranslationExpansion-1.0.0-forge-mc1.16.5.jar",
+    "loader": "forge",
+    "minecraft": "1.16.5",
+    "language_files": 89,
+    "size": 42561,
+    "sha256": "08d9eb50e3276dc13f9d082aea76a8497c78286a991705728a8a7ef727c3f447"
+  },
+  {
+    "file": "CatalogueTranslationExpansion-1.0.0-forge-mc1.17.1.jar",
+    "loader": "forge",
+    "minecraft": "1.17.1",
+    "language_files": 89,
+    "size": 42563,
+    "sha256": "6e929c55bb8bd6e59d5e096642815b99022e8662b4c1a0b001d88b6233fb5ad4"
+  },
+  {
+    "file": "CatalogueTranslationExpansion-1.0.0-forge-mc1.18.2.jar",
+    "loader": "forge",
+    "minecraft": "1.18.2",
+    "language_files": 87,
+    "size": 41876,
+    "sha256": "53f051a11165e7c244d555bb51a53dfa6ae14a39738d7d65828ccbdeb3f7a361"
+  },
+  {
+    "file": "CatalogueTranslationExpansion-1.0.0-forge-mc1.19.2.jar",
+    "loader": "forge",
+    "minecraft": "1.19.2",
+    "language_files": 87,
+    "size": 41876,
+    "sha256": "47c8b45a35a79b3529c3aac0c1104569e9a46cf47885ae8da4be7e1f6bcfe67b"
+  },
+  {
+    "file": "CatalogueTranslationExpansion-1.0.0-forge-mc1.19.3.jar",
+    "loader": "forge",
+    "minecraft": "1.19.3",
+    "language_files": 87,
+    "size": 41878,
+    "sha256": "a5eec03b0ca6b4bc16e54542dbbdaadf4d6aae0482701bdfc39ff25942098306"
+  },
+  {
+    "file": "CatalogueTranslationExpansion-1.0.0-forge-mc1.19.4.jar",
+    "loader": "forge",
+    "minecraft": "1.19.4",
+    "language_files": 108,
+    "size": 65420,
+    "sha256": "818fc315776f4edf2379806e2de64fee59219d09812b72b43893624db77e1725"
+  },
+  {
+    "file": "CatalogueTranslationExpansion-1.0.0-forge-mc1.20.1.jar",
+    "loader": "forge",
+    "minecraft": "1.20.1",
+    "language_files": 108,
+    "size": 65540,
+    "sha256": "c7a955bda11b1581ea600d780f5aa8695c63b933f8562b1c75a47193dcaaeb99"
+  },
+  {
+    "file": "CatalogueTranslationExpansion-1.0.0-forge-mc1.20.4-1.21.11.jar",
+    "loader": "forge",
+    "minecraft": "1.20.4-1.21.11",
+    "language_files": 108,
+    "size": 102174,
+    "sha256": "5ea2c71fd5d5ccba9f129d72092afe6b4439d84c999595d06c4f23fd9b199cdd"
+  },
+  {
+    "file": "CatalogueTranslationExpansion-1.0.0-fabric-mc1.19.3.jar",
+    "loader": "fabric",
+    "minecraft": "1.19.3",
+    "language_files": 87,
+    "size": 50417,
+    "sha256": "c006bde7bd10f7b6e3ff02e70335668fc1bc618f2109b549ba0e4f5d7b1ca03b"
+  },
+  {
+    "file": "CatalogueTranslationExpansion-1.0.0-fabric-mc1.19.4.jar",
+    "loader": "fabric",
+    "minecraft": "1.19.4",
+    "language_files": 108,
+    "size": 64849,
+    "sha256": "8617e6d2661d6e28dd89b7f7e9c0c06e6ac17385fc9b9ed835a9b475baf694d8"
+  },
+  {
+    "file": "CatalogueTranslationExpansion-1.0.0-fabric-mc1.20.1.jar",
+    "loader": "fabric",
+    "minecraft": "1.20.1",
+    "language_files": 108,
+    "size": 64970,
+    "sha256": "f0e2df9c2a7f3295712bcc1be2583e474463fa5c28e6dbea438f4d272be304e9"
+  },
+  {
+    "file": "CatalogueTranslationExpansion-1.0.0-fabric-mc1.20.4-26.2.jar",
+    "loader": "fabric",
+    "minecraft": "1.20.4-26.2",
+    "language_files": 108,
+    "size": 101612,
+    "sha256": "527f85002abf3c37369e9d26de3a391fd2518ffb8f70c6af73702a2f70ef325a"
+  },
+  {
+    "file": "CatalogueTranslationExpansion-1.0.0-neoforge-mc1.20.4-26.2.jar",
+    "loader": "neoforge",
+    "minecraft": "1.20.4-26.2",
+    "language_files": 108,
+    "size": 102644,
+    "sha256": "e50a1669e122aa58871ba26b724af0951d8d10524351ae869c327badfa88ed52"
+  }
+]
