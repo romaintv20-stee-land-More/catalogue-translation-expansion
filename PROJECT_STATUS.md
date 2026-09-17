@@ -93,7 +93,7 @@ Requirements: Python 3.11+ and JDK 21+ (`javac` must support `--release 8` and `
 python scripts/build_release.py
 ```
 
-The script reads the translation JSON files, generates the six localization generations, compiles tiny loader entrypoints against local annotation stubs, builds all 13 JARs, validates JSON/placeholders/metadata, creates checksums and writes a combined ZIP. No precompiled local `.class` files are required.
+The script reads the translation JSON files, generates the six localization generations, compiles tiny loader entrypoints against local annotation stubs, builds all 13 JARs, validates JSON/placeholders/metadata, creates checksums and writes a combined ZIP. Archive timestamps are normalized so identical source input produces identical release archives. GitHub Actions performs two consecutive builds and compares JAR checksums, the build report and the combined ZIP hash.
 
 ## 1.0.1 scope
 
@@ -102,11 +102,13 @@ The script reads the translation JSON files, generates the six localization gene
 - raise complete modern-union coverage from **38 to 50 locales**;
 - correct the historical 1.21.5 audit and include 1.21.5 in upload metadata;
 - remove accidental 1.21.2 upload tagging where present;
-- regenerate all 13 JARs because version/license metadata changes affect every artifact.
+- regenerate all 13 JARs because version/license metadata changes affect every artifact;
+- make ZIP/JAR output genuinely reproducible by normalizing archive timestamps;
+- update the CI workflow to current stable GitHub Actions majors and verify reproducibility automatically.
 
 ## Current QA status
 
-Version **1.0.0** was structurally built as 13 artifacts and scripted QA passed. Version **1.0.1** must be rebuilt after the source changes above; CI/scripted QA must pass before merging/releasing.
+Version **1.0.1** passes the GitHub Actions build and scripted QA as **13 artifacts** with `LEGACY=91`, `CURRENT=101`, `MASTER=108` and `FULL_TRANSLATED=50`. JSON syntax, `%s` placeholders and loader/resource metadata are validated. Two consecutive CI builds produced identical JAR checksums, identical `build-report.json` and an identical combined ZIP hash.
 
 Runtime testing remains useful for representative endpoints, especially Forge 1.16.5, Forge 1.20.4/1.21.11, Fabric 1.19.3/1.20.4/26.2, and NeoForge 1.20.4/26.2. If a grouped metadata range is rejected, split only that affected group.
 
