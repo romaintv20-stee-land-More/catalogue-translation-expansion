@@ -3,7 +3,7 @@
 > **Start here in a new chat.** This is the canonical handoff for maintaining the project without relying on previous ChatGPT conversation history.
 
 Last synchronized: **2026-09-17**  
-Release preparation branch: **`release/1.0.1`**  
+Release line: **1.0.1**  
 Upstream: **MrCrayfish/Catalogue**  
 Latest audited upstream branch: **`multiloader/26.2`** — Catalogue **1.12.3**, Minecraft **26.2**.
 
@@ -32,16 +32,16 @@ The cross-generation union contains **36 distinct keys**. Reuse a translation on
 - Novelty/fantasy entries are deferred/excluded (Pirate Speak, Upside Down English, LOLCAT, Quenya, Klingon, etc.).
 - Historical primary-locale union used by the build: **108 locale codes**.
 - Current Minecraft 26.2 primary selection: **101 locale codes**.
-- **50 locales** currently have complete translations for the full 36-key modern union.
+- **51 locales** currently have complete translations for the full 36-key modern union.
 - Low-confidence/rare locales deliberately fall back to English rather than receiving speculative translations.
 
 Full modern translations are stored as JSON in `translations/modern-union/`. G1 historical translations are stored in `translations/g1-legacy-forge-3/`.
 
 Complete modern locales:
 
-`af_za ar_sa az_az be_by bg_bg ca_es cs_cz da_dk de_de el_gr es_es et_ee eu_es fa_ir fi_fi fil_ph fr_fr gl_es he_il hi_in hr_hr hu_hu hy_am id_id is_is it_it ja_jp ka_ge kk_kz ko_kr lt_lt lv_lv ms_my nl_nl no_no pl_pl pt_br ro_ro ru_ru sk_sk sl_si sq_al sr_sp sv_se ta_in th_th tr_tr uk_ua vi_vn zh_cn`
+`af_za ar_sa az_az be_by bg_bg bs_ba ca_es cs_cz da_dk de_de el_gr es_es et_ee eu_es fa_ir fi_fi fil_ph fr_fr gl_es he_il hi_in hr_hr hu_hu hy_am id_id is_is it_it ja_jp ka_ge kk_kz ko_kr lt_lt lv_lv ms_my nl_nl no_no pl_pl pt_br ro_ro ru_ru sk_sk sl_si sq_al sr_sp sv_se ta_in th_th tr_tr uk_ua vi_vn zh_cn`
 
-Added as complete modern locales for **1.0.1**: `af_za az_az be_by el_gr eu_es fa_ir hy_am is_is ka_ge kk_kz sq_al ta_in`.
+Added as complete modern locales for **1.0.1**: `af_za az_az be_by bs_ba el_gr eu_es fa_ir hy_am is_is ka_ge kk_kz sq_al ta_in`.
 
 ## Official upstream translation protection
 
@@ -99,7 +99,7 @@ The script reads the translation JSON files, generates the six localization gene
 
 - bump all generated artifacts and metadata from 1.0.0 to **1.0.1**;
 - align license declarations on **MIT**;
-- raise complete modern-union coverage from **38 to 50 locales**;
+- raise complete modern-union coverage from **38 to 51 locales**;
 - correct the historical 1.21.5 audit and include 1.21.5 in upload metadata;
 - remove accidental 1.21.2 upload tagging where present;
 - regenerate all 13 JARs because version/license metadata changes affect every artifact;
@@ -108,7 +108,7 @@ The script reads the translation JSON files, generates the six localization gene
 
 ## Current QA status
 
-Version **1.0.1** passes the GitHub Actions build and scripted QA as **13 artifacts** with `LEGACY=91`, `CURRENT=101`, `MASTER=108` and `FULL_TRANSLATED=50`. JSON syntax, `%s` placeholders and loader/resource metadata are validated. Two consecutive CI builds produced identical JAR checksums, identical `build-report.json` and an identical combined ZIP hash.
+Version **1.0.1** is expected to build as **13 artifacts** with `LEGACY=91`, `CURRENT=101`, `MASTER=108` and `FULL_TRANSLATED=51`. JSON syntax, `%s` placeholders and loader/resource metadata are validated automatically, and GitHub Actions verifies reproducible output with two consecutive builds.
 
 Runtime testing remains useful for representative endpoints, especially Forge 1.16.5, Forge 1.20.4/1.21.11, Fabric 1.19.3/1.20.4/26.2, and NeoForge 1.20.4/26.2. If a grouped metadata range is rejected, split only that affected group.
 
