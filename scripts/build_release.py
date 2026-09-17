@@ -158,7 +158,7 @@ def build_stubs():
 
 def validate_sources():
     assert len(LEGACY)==91 and len(CURRENT)==101 and len(MASTER)==108
-    assert len(MODERN)==50
+    assert len(MODERN)==51
     for code,data in MODERN.items():
         if set(data)!=set(EN): raise ValueError(f'{code}: modern union keys differ from EN')
         for k,v in data.items():

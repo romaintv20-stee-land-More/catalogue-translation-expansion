@@ -15,7 +15,7 @@ Then read [`docs/UPDATING.md`](docs/UPDATING.md) before adding support for a new
 - **13** grouped release JARs
 - **108** primary real-language locale codes across the historical union
 - **101** primary locales in the current 26.2 policy
-- **50** complete modern-union translations
+- **51** complete modern-union translations
 - documented English fallback for low-confidence rare locales
 
 ## Build
