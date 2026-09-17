@@ -7,11 +7,12 @@ DIST=ROOT/'dist'
 GEN=ROOT/'generated_sources'
 G1_DIR=ROOT/'translations'/'g1-legacy-forge-3'
 MODERN_DIR=ROOT/'translations'/'modern-union'
-VERSION='1.0.0'
+VERSION='1.0.1'
 MODID='catalogue_translation_expansion'
 NAME='Catalogue Translation Expansion'
 REPO='https://github.com/romaintv20-stee-land-More/catalogue-translation-expansion'
-LICENSE=(ROOT/'LICENSE').read_text(encoding='utf-8') if (ROOT/'LICENSE').exists() else 'GPL-3.0-only'
+LICENSE=(ROOT/'LICENSE').read_text(encoding='utf-8') if (ROOT/'LICENSE').exists() else 'MIT License'
+FIXED_ZIP_DATE=(1980,1,1,0,0,0)
 NOTICE='''Catalogue Translation Expansion\n\nIndependent localization add-on for MrCrayfish Catalogue.\nUpstream: https://github.com/MrCrayfish/Catalogue\nTranslations are AI-assisted and subject to QA/community review.\nLow-confidence locales may intentionally use English fallback.\n'''
 
 EN=OrderedDict([
@@ -78,6 +79,17 @@ MASTER=sorted(set(LEGACY)|set(CURRENT))
 def load_json(path):
     return json.loads(path.read_text(encoding='utf-8'), object_pairs_hook=OrderedDict)
 
+def normalize_zip(path):
+    tmp=path.with_name(path.name+'.tmp')
+    with zipfile.ZipFile(path,'r') as src, zipfile.ZipFile(tmp,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as dst:
+        for old in src.infolist():
+            info=zipfile.ZipInfo(old.filename,FIXED_ZIP_DATE)
+            info.compress_type=zipfile.ZIP_DEFLATED
+            info.create_system=old.create_system
+            info.external_attr=old.external_attr
+            dst.writestr(info,src.read(old.filename),compress_type=zipfile.ZIP_DEFLATED,compresslevel=9)
+    tmp.replace(path)
+
 def modern_translations():
     return {p.stem:load_json(p) for p in sorted(MODERN_DIR.glob('*.json'))}
 
@@ -122,14 +134,14 @@ def pack_mcmeta(t):
     return json.dumps({'pack':p},ensure_ascii=False,indent=2)+'\n'
 
 def forge_toml(t):
-    return f'''modLoader="javafml"\nloaderVersion="{t['forge']}"\nlicense="GPL-3.0-only"\nissueTrackerURL="{REPO}/issues"\n\n[[mods]]\nmodId="{MODID}"\nversion="{VERSION}"\ndisplayName="{NAME}"\nauthors="romaintv20-stee-land-More"\ndisplayURL="{REPO}"\ndescription=''' + "'''Translations for Catalogue across Minecraft versions and loaders.'''\n" + f'''\n[[dependencies.{MODID}]]\nmodId="forge"\nmandatory=true\nversionRange="{t['forge']}"\nordering="NONE"\nside="BOTH"\n\n[[dependencies.{MODID}]]\nmodId="minecraft"\nmandatory=true\nversionRange="{t['mc_range']}"\nordering="NONE"\nside="BOTH"\n\n[[dependencies.{MODID}]]\nmodId="catalogue"\nmandatory=true\nversionRange="{t['cat']}"\nordering="AFTER"\nside="CLIENT"\n'''
+    return f'''modLoader="javafml"\nloaderVersion="{t['forge']}"\nlicense="MIT"\nissueTrackerURL="{REPO}/issues"\n\n[[mods]]\nmodId="{MODID}"\nversion="{VERSION}"\ndisplayName="{NAME}"\nauthors="romaintv20-stee-land-More"\ndisplayURL="{REPO}"\ndescription=''' + "'''Translations for Catalogue across Minecraft versions and loaders.'''\n" + f'''\n[[dependencies.{MODID}]]\nmodId="forge"\nmandatory=true\nversionRange="{t['forge']}"\nordering="NONE"\nside="BOTH"\n\n[[dependencies.{MODID}]]\nmodId="minecraft"\nmandatory=true\nversionRange="{t['mc_range']}"\nordering="NONE"\nside="BOTH"\n\n[[dependencies.{MODID}]]\nmodId="catalogue"\nmandatory=true\nversionRange="{t['cat']}"\nordering="AFTER"\nside="CLIENT"\n'''
 
 def fabric_json(t):
     mc='>=1.20.4 <=26.2' if t['mc']=='1.20.4-26.2' else t['mc']
-    return json.dumps({'schemaVersion':1,'id':MODID,'version':VERSION,'name':NAME,'description':'Translations for Catalogue across Minecraft versions.','authors':['romaintv20-stee-land-More'],'contact':{'sources':REPO,'issues':REPO+'/issues'},'license':'GPL-3.0-only','environment':'client','depends':{'fabricloader':t['fabric'],'minecraft':mc,'catalogue':t['cat']}},indent=2,ensure_ascii=False)+'\n'
+    return json.dumps({'schemaVersion':1,'id':MODID,'version':VERSION,'name':NAME,'description':'Translations for Catalogue across Minecraft versions.','authors':['romaintv20-stee-land-More'],'contact':{'sources':REPO,'issues':REPO+'/issues'},'license':'MIT','environment':'client','depends':{'fabricloader':t['fabric'],'minecraft':mc,'catalogue':t['cat']}},indent=2,ensure_ascii=False)+'\n'
 
 def neo_toml(t):
-    return f'''modLoader = "javafml"\nloaderVersion = "[2,)"\nlicense = "GPL-3.0-only"\nissueTrackerURL = "{REPO}/issues"\n\n[[mods]]\nmodId = "{MODID}"\nversion = "{VERSION}"\ndisplayName = "{NAME}"\nauthors = "romaintv20-stee-land-More"\ndescription = "Translations for Catalogue across Minecraft versions."\n\n[[dependencies.{MODID}]]\nmodId = "neoforge"\ntype = "required"\nversionRange = "{t['neo']}"\nordering = "NONE"\nside = "BOTH"\n\n[[dependencies.{MODID}]]\nmodId = "minecraft"\ntype = "required"\nversionRange = "[1.20.4,27)"\nordering = "NONE"\nside = "BOTH"\n\n[[dependencies.{MODID}]]\nmodId = "catalogue"\ntype = "required"\nversionRange = "{t['cat']}"\nordering = "AFTER"\nside = "CLIENT"\n'''
+    return f'''modLoader = "javafml"\nloaderVersion = "[2,)"\nlicense = "MIT"\nissueTrackerURL = "{REPO}/issues"\n\n[[mods]]\nmodId = "{MODID}"\nversion = "{VERSION}"\ndisplayName = "{NAME}"\nauthors = "romaintv20-stee-land-More"\ndescription = "Translations for Catalogue across Minecraft versions."\n\n[[dependencies.{MODID}]]\nmodId = "neoforge"\ntype = "required"\nversionRange = "{t['neo']}"\nordering = "NONE"\nside = "BOTH"\n\n[[dependencies.{MODID}]]\nmodId = "minecraft"\ntype = "required"\nversionRange = "[1.20.4,27)"\nordering = "NONE"\nside = "BOTH"\n\n[[dependencies.{MODID}]]\nmodId = "catalogue"\ntype = "required"\nversionRange = "{t['cat']}"\nordering = "AFTER"\nside = "CLIENT"\n'''
 
 def build_stubs():
     work=ROOT/'.build_stubs'; shutil.rmtree(work,ignore_errors=True)
@@ -146,7 +158,7 @@ def build_stubs():
 
 def validate_sources():
     assert len(LEGACY)==91 and len(CURRENT)==101 and len(MASTER)==108
-    assert len(MODERN)==38
+    assert len(MODERN)==50
     for code,data in MODERN.items():
         if set(data)!=set(EN): raise ValueError(f'{code}: modern union keys differ from EN')
         for k,v in data.items():
@@ -183,6 +195,7 @@ def build():
                 vals=OrderedDict((k,v) for k,v in vals.items() if k not in prot)
                 if vals:
                     z.writestr(f'assets/catalogue/lang/{code}.json',json.dumps(vals,ensure_ascii=False,indent=2)+'\n'); count+=1
+        normalize_zip(path)
         report.append({'file':fn,'loader':t['loader'],'minecraft':t['mc'],'language_files':count,'size':path.stat().st_size,'sha256':hashlib.sha256(path.read_bytes()).hexdigest()})
     (DIST/'build-report.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
     (DIST/'SHA256SUMS.txt').write_text(''.join(f"{r['sha256']}  {r['file']}\n" for r in report),encoding='utf-8')
@@ -190,6 +203,7 @@ def build():
     with zipfile.ZipFile(bundle,'w',zipfile.ZIP_DEFLATED) as z:
         for r in report: z.write(DIST/r['file'],r['file'])
         z.write(DIST/'SHA256SUMS.txt','SHA256SUMS.txt'); z.write(DIST/'build-report.json','build-report.json')
+    normalize_zip(bundle)
     qa(report); return report,bundle
 
 def qa(report):

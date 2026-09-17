@@ -1,10 +1,11 @@
-Catalogue Translation Expansion 1.0.0
+Catalogue Translation Expansion 1.0.1
 
 108 primary real-language locale codes across supported history.
 101 primary locale codes in current Minecraft 26.2 policy.
-38 locales have complete 36-key modern-union translations.
+50 locales have complete 36-key modern-union translations.
 Other low-confidence/rare locales use documented English fallback.
 Novelty/fantasy and regional/orthographic duplicates are deferred.
 
 QA: 13 JARs structurally built; JSON and %s placeholders validated; loader/resource metadata inspected; checksums generated.
-Runtime caveat: representative Minecraft/loader launches are still required before stable publication.
+Reproducibility QA: two consecutive release builds produced identical JAR checksums, build report and combined ZIP hash in GitHub Actions.
+Runtime caveat: representative Minecraft/loader launches remain useful before or after publication, especially grouped-range endpoints.

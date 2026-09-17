@@ -9,17 +9,26 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: '21'
-      - name: Build and validate all release JARs
-        run: python scripts/build_release.py
-      - uses: actions/upload-artifact@v4
+      - name: Build, validate and verify reproducibility
+        run: |
+          python scripts/build_release.py
+          cp dist/SHA256SUMS.txt /tmp/SHA256SUMS.first
+          cp dist/build-report.json /tmp/build-report.first.json
+          sha256sum dist/CatalogueTranslationExpansion-1.0.1-ALL-JARS.zip > /tmp/bundle.first
+          python scripts/build_release.py
+          diff -u /tmp/SHA256SUMS.first dist/SHA256SUMS.txt
+          diff -u /tmp/build-report.first.json dist/build-report.json
+          sha256sum dist/CatalogueTranslationExpansion-1.0.1-ALL-JARS.zip > /tmp/bundle.second
+          diff -u /tmp/bundle.first /tmp/bundle.second
+      - uses: actions/upload-artifact@v7
         with:
           name: catalogue-translation-expansion-jars
           path: |

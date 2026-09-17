@@ -1,5 +1,5 @@
 {
-  "project_version": "0.1.0-test",
+  "project_version": "1.0.1",
   "targets": [
     {
       "id": "mc1.16.5-forge",

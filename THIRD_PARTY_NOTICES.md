@@ -4,6 +4,6 @@ Catalogue Translation Expansion is an independent localization add-on for **Cata
 
 - Upstream: https://github.com/MrCrayfish/Catalogue
 - No Catalogue Java implementation source is redistributed.
-- Translation keys and English source strings are tracked only for localization compatibility.
-- Historical Catalogue branches include GPLv3 licensing while later branches declare MIT; this project uses **GPL-3.0-only** conservatively.
+- Translation keys and short English source strings are tracked only for localization compatibility.
+- Catalogue's licensing changed across its history; current Catalogue releases declare MIT. This independent add-on is distributed under the **MIT License**.
 - Translations are AI-assisted and subject to QA/community correction. Low-confidence locales may intentionally use English fallback.

@@ -2,8 +2,8 @@
 
 > **Start here in a new chat.** This is the canonical handoff for maintaining the project without relying on previous ChatGPT conversation history.
 
-Last synchronized: **2026-09-11**  
-Development branch: **`dev/catalogue-audit`**  
+Last synchronized: **2026-09-17**  
+Release preparation branch: **`release/1.0.1`**  
 Upstream: **MrCrayfish/Catalogue**  
 Latest audited upstream branch: **`multiloader/26.2`** — Catalogue **1.12.3**, Minecraft **26.2**.
 
@@ -32,14 +32,16 @@ The cross-generation union contains **36 distinct keys**. Reuse a translation on
 - Novelty/fantasy entries are deferred/excluded (Pirate Speak, Upside Down English, LOLCAT, Quenya, Klingon, etc.).
 - Historical primary-locale union used by the build: **108 locale codes**.
 - Current Minecraft 26.2 primary selection: **101 locale codes**.
-- **38 locales** currently have complete translations for the full 36-key modern union.
+- **50 locales** currently have complete translations for the full 36-key modern union.
 - Low-confidence/rare locales deliberately fall back to English rather than receiving speculative translations.
 
 Full modern translations are stored as JSON in `translations/modern-union/`. G1 historical translations are stored in `translations/g1-legacy-forge-3/`.
 
 Complete modern locales:
 
-`fr_fr de_de es_es it_it pt_br nl_nl pl_pl ru_ru uk_ua cs_cz sk_sk ro_ro hu_hu tr_tr da_dk sv_se no_no fi_fi ja_jp ko_kr zh_cn id_id ca_es gl_es ar_sa he_il hi_in vi_vn th_th bg_bg hr_hr sl_si sr_sp et_ee lt_lt lv_lv ms_my fil_ph`
+`af_za ar_sa az_az be_by bg_bg ca_es cs_cz da_dk de_de el_gr es_es et_ee eu_es fa_ir fi_fi fil_ph fr_fr gl_es he_il hi_in hr_hr hu_hu hy_am id_id is_is it_it ja_jp ka_ge kk_kz ko_kr lt_lt lv_lv ms_my nl_nl no_no pl_pl pt_br ro_ro ru_ru sk_sk sl_si sq_al sr_sp sv_se ta_in th_th tr_tr uk_ua vi_vn zh_cn`
+
+Added as complete modern locales for **1.0.1**: `af_za az_az be_by el_gr eu_es fa_ir hy_am is_is ka_ge kk_kz sq_al ta_in`.
 
 ## Official upstream translation protection
 
@@ -68,19 +70,20 @@ The project deliberately groups compatible versions instead of publishing about 
 | NeoForge | 1.20.4 → 26.2 | grouped |
 
 Important upstream facts:
-- Catalogue branch `multiloader/1.21.5` actually targets **Minecraft 1.21.6**; do not create a fake 1.21.5 release from the branch name.
+- **Minecraft 1.21.5 is a genuine Catalogue target.** Repository history contains a real 1.21.5 update/release even though the current head of the old `multiloader/1.21.5` branch later points at 1.21.6. Historical target decisions must use commits/releases, not only the present branch head.
+- Catalogue has **no published Minecraft 1.21.2 release**. Do not tag the grouped release files as 1.21.2 on CurseForge/Modrinth.
 - 26.1+ actual Catalogue loaders are Fabric + NeoForge.
 - Several upstream `pack.mcmeta` files are historically stale; do not copy their pack format blindly.
 
 ## Audited Minecraft resource formats
 
-`1.16.5=6`, `1.17.1=7`, `1.18.2=8`, `1.19–1.19.2=9`, `1.19.3=12`, `1.19.4=13`, `1.20–1.20.1=15`, `1.20.4=22`, `1.20.5–1.20.6=32`, `1.21–1.21.1=34`, `1.21.3=42`, `1.21.4=46`, `1.21.6=63`, `1.21.7–1.21.8=64`, `1.21.9–1.21.10=69`, `1.21.11=75`, `26.1=84`, `26.2=88`.
+`1.16.5=6`, `1.17.1=7`, `1.18.2=8`, `1.19–1.19.2=9`, `1.19.3=12`, `1.19.4=13`, `1.20–1.20.1=15`, `1.20.4=22`, `1.20.5–1.20.6=32`, `1.21–1.21.1=34`, `1.21.3=42`, `1.21.4=46`, `1.21.5=55`, `1.21.6=63`, `1.21.7–1.21.8=64`, `1.21.9–1.21.10=69`, `1.21.11=75`, `26.1=84`, `26.2=88`.
 
 Grouped modern packs include compatibility metadata for both the older `supported_formats` era and the newer `min_format` / `max_format` era.
 
 ## Licensing
 
-Project policy: **GPL-3.0-only**, chosen conservatively because historical Catalogue branches include GPLv3 while later branches declare MIT. Do not copy Catalogue Java implementation code.
+Project policy for **1.0.1+ is MIT**, matching the repository `LICENSE` file and the public project metadata. Catalogue remains a separate upstream work; this project does not redistribute Catalogue's Java implementation code. Keep third-party attribution in `THIRD_PARTY_NOTICES.md`.
 
 ## Reproducible build
 
@@ -90,19 +93,30 @@ Requirements: Python 3.11+ and JDK 21+ (`javac` must support `--release 8` and `
 python scripts/build_release.py
 ```
 
-The script reads the translation JSON files, generates the six localization generations, compiles tiny loader entrypoints against local annotation stubs, builds all 13 JARs, validates JSON/placeholders/metadata, creates checksums and writes a combined ZIP. No precompiled local `.class` files are required.
+The script reads the translation JSON files, generates the six localization generations, compiles tiny loader entrypoints against local annotation stubs, builds all 13 JARs, validates JSON/placeholders/metadata, creates checksums and writes a combined ZIP. Archive timestamps are normalized so identical source input produces identical release archives. GitHub Actions performs two consecutive builds and compares JAR checksums, the build report and the combined ZIP hash.
+
+## 1.0.1 scope
+
+- bump all generated artifacts and metadata from 1.0.0 to **1.0.1**;
+- align license declarations on **MIT**;
+- raise complete modern-union coverage from **38 to 50 locales**;
+- correct the historical 1.21.5 audit and include 1.21.5 in upload metadata;
+- remove accidental 1.21.2 upload tagging where present;
+- regenerate all 13 JARs because version/license metadata changes affect every artifact;
+- make ZIP/JAR output genuinely reproducible by normalizing archive timestamps;
+- update the CI workflow to current stable GitHub Actions majors and verify reproducibility automatically.
 
 ## Current QA status
 
-Version **1.0.0** has been structurally built as 13 artifacts. Scripted QA passes.
+Version **1.0.1** passes the GitHub Actions build and scripted QA as **13 artifacts** with `LEGACY=91`, `CURRENT=101`, `MASTER=108` and `FULL_TRANSLATED=50`. JSON syntax, `%s` placeholders and loader/resource metadata are validated. Two consecutive CI builds produced identical JAR checksums, identical `build-report.json` and an identical combined ZIP hash.
 
-**Runtime caveat:** the grouped JARs have not yet been launched in every Minecraft/loader combination. Before a stable public release, runtime-test representative endpoints, especially Forge 1.16.5, Forge 1.20.4/1.21.11, Fabric 1.19.3/1.20.4/26.2, and NeoForge 1.20.4/26.2. If a grouped metadata range is rejected, split only that affected group.
+Runtime testing remains useful for representative endpoints, especially Forge 1.16.5, Forge 1.20.4/1.21.11, Fabric 1.19.3/1.20.4/26.2, and NeoForge 1.20.4/26.2. If a grouped metadata range is rejected, split only that affected group.
 
 ## New-chat resume procedure
 
 1. Read this file.
 2. Read `docs/UPDATING.md` and `docs/RELEASE_MATRIX.md`.
-3. Check the current upstream Catalogue branches before assuming 26.2 is still latest.
+3. Check the current upstream Catalogue branches/releases before assuming 26.2 is still latest.
 4. Diff the upstream English localization against the six-generation model.
 5. Reuse translations only for unchanged English meaning; translate new/changed strings.
 6. Audit Minecraft's language list for new/removed locales and apply the real-language/primary-locale policy.

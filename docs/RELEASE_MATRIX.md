@@ -1,6 +1,6 @@
 # Release matrix
 
-Current planned project version: **1.0.0**.
+Current planned project version: **1.0.1**.
 
 | Artifact group | Loader | Minecraft | Catalogue baseline | Content |
 |---|---|---|---|---|
@@ -18,4 +18,13 @@ Current planned project version: **1.0.0**.
 | fabric-mc1.20.4-26.2 | Fabric | 1.20.4 → 26.2 | 1.9.1 → 1.12.3 | modern union |
 | neoforge-mc1.20.4-26.2 | NeoForge | 1.20.4 → 26.2 | 1.9.1 → 1.12.3 | modern union |
 
-Catalogue's branch named `multiloader/1.21.5` targets Minecraft **1.21.6**, so it does not create a separate 1.21.5 release target.
+## Upload metadata notes
+
+The grouped JAR dependency ranges are intentionally broader than the exact set of Catalogue releases. CurseForge/Modrinth game-version tags must follow versions for which Catalogue actually has a compatible release.
+
+- **Minecraft 1.21.5 is a real Catalogue target** and must be included for the grouped Forge, Fabric and NeoForge files. Catalogue's repository history contains a genuine 1.21.5 target even though the current head of the old `multiloader/1.21.5` branch was later moved to 1.21.6.
+- **Minecraft 1.21.2 must not be tagged** for the grouped files because Catalogue has no published 1.21.2 file. The upstream release list jumps from 1.21.1 to 1.21.3.
+- The audited resource-pack format for Minecraft **1.21.5 is 55**.
+- 26.1+ Catalogue releases use Fabric and NeoForge; do not tag Forge for those versions.
+
+Do not infer historical target versions from the current contents of an old branch alone. Check release files, commits and `gradle.properties` together.
