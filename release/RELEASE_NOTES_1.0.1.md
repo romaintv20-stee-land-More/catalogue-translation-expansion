@@ -4,10 +4,11 @@ Maintenance and translation-coverage release.
 
 ## Changes
 
-- Added complete modern 36-key translations for 12 additional locales:
+- Added complete modern 36-key translations for 13 additional locales:
   - Afrikaans (`af_za`)
   - Azerbaijani (`az_az`)
   - Belarusian (`be_by`)
+  - Bosnian (`bs_ba`)
   - Greek (`el_gr`)
   - Basque (`eu_es`)
   - Persian (`fa_ir`)
@@ -17,7 +18,7 @@ Maintenance and translation-coverage release.
   - Kazakh (`kk_kz`)
   - Albanian (`sq_al`)
   - Tamil (`ta_in`)
-- Increased complete modern-union coverage from **38 to 50 locales**.
+- Increased complete modern-union coverage from **38 to 51 locales**.
 - Kept the historical G1 translations unchanged for older Catalogue versions.
 - Bumped every generated artifact and embedded manifest from **1.0.0 to 1.0.1**.
 - Aligned repository, loader metadata and packaged license declaration on **MIT**.
@@ -59,6 +60,6 @@ A successful release build must report:
 - `LEGACY=91`;
 - `CURRENT=101`;
 - `MASTER=108`;
-- `FULL_TRANSLATED=50`;
+- `FULL_TRANSLATED=51`;
 - valid JSON and preserved `%s` placeholders;
 - generated SHA-256 checksums and combined ZIP.
