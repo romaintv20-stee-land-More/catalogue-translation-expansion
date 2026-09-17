@@ -2,7 +2,7 @@ Catalogue Translation Expansion 1.0.1
 
 108 primary real-language locale codes across supported history.
 101 primary locale codes in current Minecraft 26.2 policy.
-50 locales have complete 36-key modern-union translations.
+51 locales have complete 36-key modern-union translations.
 Other low-confidence/rare locales use documented English fallback.
 Novelty/fantasy and regional/orthographic duplicates are deferred.
 
