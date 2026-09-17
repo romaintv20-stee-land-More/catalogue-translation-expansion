@@ -12,6 +12,7 @@ MODID='catalogue_translation_expansion'
 NAME='Catalogue Translation Expansion'
 REPO='https://github.com/romaintv20-stee-land-More/catalogue-translation-expansion'
 LICENSE=(ROOT/'LICENSE').read_text(encoding='utf-8') if (ROOT/'LICENSE').exists() else 'MIT License'
+FIXED_ZIP_DATE=(1980,1,1,0,0,0)
 NOTICE='''Catalogue Translation Expansion\n\nIndependent localization add-on for MrCrayfish Catalogue.\nUpstream: https://github.com/MrCrayfish/Catalogue\nTranslations are AI-assisted and subject to QA/community review.\nLow-confidence locales may intentionally use English fallback.\n'''
 
 EN=OrderedDict([
@@ -77,6 +78,17 @@ MASTER=sorted(set(LEGACY)|set(CURRENT))
 
 def load_json(path):
     return json.loads(path.read_text(encoding='utf-8'), object_pairs_hook=OrderedDict)
+
+def normalize_zip(path):
+    tmp=path.with_name(path.name+'.tmp')
+    with zipfile.ZipFile(path,'r') as src, zipfile.ZipFile(tmp,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as dst:
+        for old in src.infolist():
+            info=zipfile.ZipInfo(old.filename,FIXED_ZIP_DATE)
+            info.compress_type=zipfile.ZIP_DEFLATED
+            info.create_system=old.create_system
+            info.external_attr=old.external_attr
+            dst.writestr(info,src.read(old.filename),compress_type=zipfile.ZIP_DEFLATED,compresslevel=9)
+    tmp.replace(path)
 
 def modern_translations():
     return {p.stem:load_json(p) for p in sorted(MODERN_DIR.glob('*.json'))}
@@ -183,6 +195,7 @@ def build():
                 vals=OrderedDict((k,v) for k,v in vals.items() if k not in prot)
                 if vals:
                     z.writestr(f'assets/catalogue/lang/{code}.json',json.dumps(vals,ensure_ascii=False,indent=2)+'\n'); count+=1
+        normalize_zip(path)
         report.append({'file':fn,'loader':t['loader'],'minecraft':t['mc'],'language_files':count,'size':path.stat().st_size,'sha256':hashlib.sha256(path.read_bytes()).hexdigest()})
     (DIST/'build-report.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
     (DIST/'SHA256SUMS.txt').write_text(''.join(f"{r['sha256']}  {r['file']}\n" for r in report),encoding='utf-8')
@@ -190,6 +203,7 @@ def build():
     with zipfile.ZipFile(bundle,'w',zipfile.ZIP_DEFLATED) as z:
         for r in report: z.write(DIST/r['file'],r['file'])
         z.write(DIST/'SHA256SUMS.txt','SHA256SUMS.txt'); z.write(DIST/'build-report.json','build-report.json')
+    normalize_zip(bundle)
     qa(report); return report,bundle
 
 def qa(report):
