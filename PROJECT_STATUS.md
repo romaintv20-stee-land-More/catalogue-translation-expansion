@@ -108,7 +108,7 @@ The script reads the translation JSON files, generates the six localization gene
 
 ## Current QA status
 
-Version **1.0.1** is expected to build as **13 artifacts** with `LEGACY=91`, `CURRENT=101`, `MASTER=108` and `FULL_TRANSLATED=51`. JSON syntax, `%s` placeholders and loader/resource metadata are validated automatically, and GitHub Actions verifies reproducible output with two consecutive builds.
+Version **1.0.1** passes the GitHub Actions build and scripted QA as **13 artifacts** with `LEGACY=91`, `CURRENT=101`, `MASTER=108` and `FULL_TRANSLATED=51`. JSON syntax, `%s` placeholders and loader/resource metadata are validated. Two consecutive CI builds produce identical JAR checksums, identical `build-report.json` and an identical combined ZIP hash.
 
 Runtime testing remains useful for representative endpoints, especially Forge 1.16.5, Forge 1.20.4/1.21.11, Fabric 1.19.3/1.20.4/26.2, and NeoForge 1.20.4/26.2. If a grouped metadata range is rejected, split only that affected group.
 
