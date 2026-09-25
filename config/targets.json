@@ -60,6 +60,34 @@
       "java_upstream": 25,
       "generation": "g6-26x-34",
       "resource_pack_format": 88
+    },
+    {
+      "id": "mc26.3-fabric",
+      "minecraft": "26.3",
+      "catalogue": "1.12.3",
+      "loader": "fabric",
+      "loader_version": "0.19.5",
+      "java_upstream": 25,
+      "generation": "g6-26x-34",
+      "resource_pack_format": [
+        97,
+        1
+      ],
+      "marathi_minecraft_embedded": true
+    },
+    {
+      "id": "mc26.3-neoforge",
+      "minecraft": "26.3",
+      "catalogue": "1.12.3",
+      "loader": "neoforge",
+      "loader_version": "26.3.0.3-beta",
+      "java_upstream": 25,
+      "generation": "g6-26x-34",
+      "resource_pack_format": [
+        97,
+        1
+      ],
+      "marathi_minecraft_embedded": true
     }
   ]
 }

@@ -17,8 +17,12 @@ Current planned project version: **1.0.1**.
 | fabric-mc1.20.1 | Fabric | 1.20.1 | 1.8.1 | G3 |
 | fabric-mc1.20.4-26.2 | Fabric | 1.20.4 → 26.2 | 1.9.1 → 1.12.3 | modern union |
 | neoforge-mc1.20.4-26.2 | NeoForge | 1.20.4 → 26.2 | 1.9.1 → 1.12.3 | modern union |
+| fabric-mc26.3 | Fabric | 26.3 | 1.12.3 | G6 + 34-key Catalogue Marathi + 8,559-key embedded Minecraft Marathi |
+| neoforge-mc26.3 | NeoForge | 26.3 | 1.12.3 | G6 + 34-key Catalogue Marathi + 8,559-key embedded Minecraft Marathi |
 
 ## Upload metadata notes
+
+The two 26.3 artifacts are separate from the 1.20.4–26.2 grouped JARs so the complete 26.3 vanilla Marathi resource does not override earlier Minecraft text. Each is **one JAR per loader**, with no accompanying resource-pack ZIP. Upstream Catalogue 26.3 is available for Fabric and NeoForge from its GitHub release; do not tag Forge 26.3.
 
 The grouped JAR dependency ranges are intentionally broader than the exact set of Catalogue releases. CurseForge/Modrinth game-version tags must follow versions for which Catalogue actually has a compatible release.
 

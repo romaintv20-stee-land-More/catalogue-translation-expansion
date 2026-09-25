@@ -71,7 +71,7 @@ legacy_raw='''af_za ar_sa ast_es az_az ba_ru bar be_by bg_bg br_fr brb bs_ba ca_
 legacy_excl=set('''bar brb de_at de_ch en_au en_ca en_gb en_nz enp enws es_ar es_cl es_ec es_mx es_uy es_ve esan fr_ca fra_de ksh nl_be nn_no pt_pt swg sxu val_es zh_tw en_pt en_ud lol_us qya_aa tlh_aa tzl_tzl en_us'''.split())
 LEGACY=sorted(c for c in legacy_raw if c not in legacy_excl)
 
-current_raw='''af_za ar_sa ast_es az_az ba_ru bar be_by be_latn bg_bg br_fr brb bs_ba ca_es cs_cz cv_cu cy_gb da_dk de_at de_ch de_de deprecated el_gr en_au en_ca en_gb en_nz en_pt en_ud en_us enp enws eo_uy es_ar es_cl es_ec es_es es_mx es_uy es_ve esan et_ee eu_es fa_ir fi_fi fil_ph fo_fo fr_ca fr_ch fr_fr fra_de fur_it fy_nl ga_ie gd_gb gl_es go_fr got_de hal_ua haw_us he_il hi_in hn_no hr_hr hu_hu hy_am id_id ig_ng io_en is_is isv it_it ja_jp jbo_en ka_ge kk_kz kn_in ko_kr ksh kw_gb ky_kg la_la lb_lu li_li lmo lo_la lol_us lt_lt lv_lv lzh mk_mk mn_mn ms_my mt_mt nah nds_de nl_be nl_nl nn_no no_no oc_fr ovd pl_pl pls pt_br pt_pt qcb_es qid qya_aa ro_ro rpr ru_ru ry_ua sah_sah se_no sk_sk sl_si so_so sq_al sr_cs sr_sp sv_se sxu szl ta_in th_th tl_ph tlh_aa tok tr_tr tt_ru tzo_mx uk_ua uz_uz val_es vec_it vi_vn vp_vl vro yi_de yo_ng zh_cn zh_hk zh_tw zlm_arab'''.split()
+current_raw='''af_za ar_sa ast_es az_az ba_ru bar be_by be_latn bg_bg br_fr brb bs_ba ca_es cs_cz cv_cu cy_gb da_dk de_at de_ch de_de deprecated el_gr en_au en_ca en_gb en_nz en_pt en_ud en_us enp enws eo_uy es_ar es_cl es_ec es_es es_mx es_uy es_ve esan et_ee eu_es fa_ir fi_fi fil_ph fo_fo fr_ca fr_ch fr_fr fra_de fur_it fy_nl ga_ie gd_gb gl_es go_fr got_de hal_ua haw_us he_il hi_in hn_no hr_hr hu_hu hy_am id_id ig_ng io_en is_is isv it_it ja_jp jbo_en ka_ge kk_kz kn_in ko_kr ksh kw_gb ky_kg la_la lb_lu li_li lmo lo_la lol_us lt_lt lv_lv lzh mk_mk mn_mn mr_in ms_my mt_mt nah nds_de nl_be nl_nl nn_no no_no oc_fr ovd pl_pl pls pt_br pt_pt qcb_es qid qya_aa ro_ro rpr ru_ru ry_ua sah_sah se_no sk_sk sl_si so_so sq_al sr_cs sr_sp sv_se sxu szl ta_in th_th tl_ph tlh_aa tok tr_tr tt_ru tzo_mx uk_ua uz_uz val_es vec_it vi_vn vp_vl vro yi_de yo_ng zh_cn zh_hk zh_tw zlm_arab'''.split()
 current_excl=set('''deprecated en_us en_pt en_ud lol_us qya_aa tlh_aa en_au en_ca en_gb en_nz enp enws de_at de_ch es_ar es_cl es_ec es_mx es_uy es_ve esan fr_ca fr_ch nl_be nn_no hn_no pt_pt zh_hk zh_tw be_latn sr_cs qid rpr zlm_arab hal_ua qcb_es bar brb fra_de ksh sxu val_es'''.split())
 CURRENT=sorted(c for c in current_raw if c not in current_excl)
 MASTER=sorted(set(LEGACY)|set(CURRENT))
@@ -104,6 +104,9 @@ def data_for(code, keys, legacy=False):
     return OrderedDict((k,base.get(k,source[k])) for k in keys)
 
 MODERN=modern_translations()
+MC26_3_MR=load_json(ROOT/'translations/minecraft/26.3/mr_in.json')
+MC26_3_SIGNATURES=load_json(ROOT/'data/minecraft_26_3_key_signatures.json')
+MC26_3_TOKEN_RE=re.compile(r'%(?:\d+\$)?(?:[-+ 0#,(]*\d*(?:\.\d+)?)?[a-zA-Z%]|§[0-9a-frklmno]|https?://\S+|(?:minecraft|controlling):[a-z0-9_./-]+')
 
 # Official Catalogue keys protected from needless override.
 def protected(target, code):
@@ -125,9 +128,16 @@ targets=[
  dict(loader='fabric',mc='1.20.1',fabric='>=0.14.0',cat='>=1.8.1 <1.9',pack=15,keys=G3,locales=MASTER,protect={c:set(G1) for c in ['de_de','pl_pl','zh_cn']}),
  dict(loader='fabric',mc='1.20.4-26.2',fabric='>=0.15.3',cat='>=1.9.1 <1.13',pack=22,supported=[22,64],minf=22,maxf=88,keys=UNION,locales=MASTER,protect={c:set(G1) for c in ['de_de','pl_pl','zh_cn']}),
  dict(loader='neoforge',mc='1.20.4-26.2',neo='[20.4,27)',cat='[1.9.1,1.13)',pack=22,supported=[22,64],minf=22,maxf=88,keys=UNION,locales=MASTER,protect={c:set(G1) for c in ['de_de','pl_pl','zh_cn']}),
+ dict(loader='fabric',mc='26.3',fabric='>=0.19.5',cat='>=1.12.3 <1.13',pack=[97,1],minf=[97,1],maxf=[97,1],keys=G6,locales=MASTER,protect={**{c:set(G1) for c in ['de_de','pl_pl','zh_cn']},'ru_ru':set(G6)-{'catalogue.gui.missing_branding','catalogue.gui.missing_branding.desc'}}),
+ dict(loader='neoforge',mc='26.3',neo='[26.3.0.3-beta,26.4)',cat='[1.12.3,1.13)',pack=[97,1],minf=[97,1],maxf=[97,1],keys=G6,locales=MASTER,protect={**{c:set(G1) for c in ['de_de','pl_pl','zh_cn']},'ru_ru':set(G6)-{'catalogue.gui.missing_branding','catalogue.gui.missing_branding.desc'}}),
 ]
 
 def pack_mcmeta(t):
+    if t['mc']=='26.3':
+        return json.dumps({'pack':{'description':f'{NAME} {VERSION} — Minecraft 26.3 Marathi',
+                                   'min_format':[97,1],'max_format':[97,1]},
+                           'language':{'mr_in':{'name':'मराठी','region':'भारत','bidirectional':False}}},
+                          ensure_ascii=False,indent=2)+'\n'
     p={'description':f'{NAME} {VERSION}','pack_format':t['pack']}
     if 'supported' in t: p['supported_formats']=t['supported']
     if 'minf' in t: p['min_format']=t['minf']; p['max_format']=t['maxf']
@@ -141,7 +151,8 @@ def fabric_json(t):
     return json.dumps({'schemaVersion':1,'id':MODID,'version':VERSION,'name':NAME,'description':'Translations for Catalogue across Minecraft versions.','authors':['romaintv20-stee-land-More'],'contact':{'sources':REPO,'issues':REPO+'/issues'},'license':'MIT','environment':'client','depends':{'fabricloader':t['fabric'],'minecraft':mc,'catalogue':t['cat']}},indent=2,ensure_ascii=False)+'\n'
 
 def neo_toml(t):
-    return f'''modLoader = "javafml"\nloaderVersion = "[2,)"\nlicense = "MIT"\nissueTrackerURL = "{REPO}/issues"\n\n[[mods]]\nmodId = "{MODID}"\nversion = "{VERSION}"\ndisplayName = "{NAME}"\nauthors = "romaintv20-stee-land-More"\ndescription = "Translations for Catalogue across Minecraft versions."\n\n[[dependencies.{MODID}]]\nmodId = "neoforge"\ntype = "required"\nversionRange = "{t['neo']}"\nordering = "NONE"\nside = "BOTH"\n\n[[dependencies.{MODID}]]\nmodId = "minecraft"\ntype = "required"\nversionRange = "[1.20.4,27)"\nordering = "NONE"\nside = "BOTH"\n\n[[dependencies.{MODID}]]\nmodId = "catalogue"\ntype = "required"\nversionRange = "{t['cat']}"\nordering = "AFTER"\nside = "CLIENT"\n'''
+    mc_range='[26.3]' if t['mc']=='26.3' else '[1.20.4,27)'
+    return f'''modLoader = "javafml"\nloaderVersion = "[2,)"\nlicense = "MIT"\nissueTrackerURL = "{REPO}/issues"\n\n[[mods]]\nmodId = "{MODID}"\nversion = "{VERSION}"\ndisplayName = "{NAME}"\nauthors = "romaintv20-stee-land-More"\ndescription = "Translations for Catalogue across Minecraft versions."\n\n[[dependencies.{MODID}]]\nmodId = "neoforge"\ntype = "required"\nversionRange = "{t['neo']}"\nordering = "NONE"\nside = "BOTH"\n\n[[dependencies.{MODID}]]\nmodId = "minecraft"\ntype = "required"\nversionRange = "{mc_range}"\nordering = "NONE"\nside = "BOTH"\n\n[[dependencies.{MODID}]]\nmodId = "catalogue"\ntype = "required"\nversionRange = "{t['cat']}"\nordering = "AFTER"\nside = "CLIENT"\n'''
 
 def build_stubs():
     work=ROOT/'.build_stubs'; shutil.rmtree(work,ignore_errors=True)
@@ -157,8 +168,15 @@ def build_stubs():
     return one('forge','net.minecraftforge.fml.common',8), one('neoforge','net.neoforged.fml.common',17)
 
 def validate_sources():
-    assert len(LEGACY)==91 and len(CURRENT)==101 and len(MASTER)==108
-    assert len(MODERN)==51
+    assert len(LEGACY)==91 and len(CURRENT)==102 and len(MASTER)==109
+    assert len(MODERN)==52
+    if len(MC26_3_MR)!=8559 or set(MC26_3_MR)!=set(MC26_3_SIGNATURES['keys']) or MC26_3_MR.get('language.code')!='mr_in':
+        raise ValueError('Minecraft 26.3 Marathi source keys or language metadata differ from the pinned official audit')
+    for key,value in MC26_3_MR.items():
+        if not isinstance(value,str) or (not value.strip() and key not in MC26_3_SIGNATURES['empty_value_keys']):
+            raise ValueError(f'{key}: invalid Minecraft Marathi translation')
+        if sorted(MC26_3_TOKEN_RE.findall(value))!=MC26_3_SIGNATURES['technical_token_signatures'].get(key,[]):
+            raise ValueError(f'{key}: corrupted Minecraft 26.3 format/technical tokens')
     for code,data in MODERN.items():
         if set(data)!=set(EN): raise ValueError(f'{code}: modern union keys differ from EN')
         for k,v in data.items():
@@ -186,6 +204,7 @@ def build():
         with zipfile.ZipFile(path,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
             z.writestr('META-INF/MANIFEST.MF',f'Manifest-Version: 1.0\nImplementation-Title: {NAME}\nImplementation-Version: {VERSION}\n\n')
             z.writestr('pack.mcmeta',pack_mcmeta(t)); z.writestr('META-INF/LICENSE.txt',LICENSE); z.writestr('META-INF/THIRD_PARTY_NOTICES.txt',NOTICE)
+            if t['mc']=='26.3': z.writestr('assets/minecraft/lang/mr_in.json',json.dumps(MC26_3_MR,ensure_ascii=False,sort_keys=True,indent=2)+'\n')
             if t['loader']=='forge': z.writestr('META-INF/mods.toml',forge_toml(t)); z.write(forge_cls,'com/romaintv/cataloguetranslationexpansion/CatalogueTranslationExpansion.class')
             elif t['loader']=='fabric': z.writestr('fabric.mod.json',fabric_json(t))
             else: z.writestr('META-INF/mods.toml',neo_toml(t)); z.writestr('META-INF/neoforge.mods.toml',neo_toml(t)); z.write(neo_cls,'com/romaintv/cataloguetranslationexpansion/CatalogueTranslationExpansion.class')
@@ -207,12 +226,18 @@ def build():
     qa(report); return report,bundle
 
 def qa(report):
-    assert len(report)==13
+    assert len(report)==15
     for r in report:
         with zipfile.ZipFile(DIST/r['file']) as z:
             names=z.namelist(); assert 'pack.mcmeta' in names; json.loads(z.read('pack.mcmeta'))
             langs=[n for n in names if n.startswith('assets/catalogue/lang/') and n.endswith('.json')]; assert langs
             for n in langs: json.loads(z.read(n).decode('utf-8'))
+            if r['minecraft']=='26.3':
+                assert r['loader'] in ('fabric','neoforge')
+                assert json.loads(z.read('assets/minecraft/lang/mr_in.json'))==MC26_3_MR
+                assert json.loads(z.read('pack.mcmeta'))['language']['mr_in']['name']=='मराठी'
+                assert json.loads(z.read('pack.mcmeta'))['pack']['max_format']==[97,1]
+                assert json.loads(z.read('assets/catalogue/lang/mr_in.json'))==OrderedDict((k,MODERN['mr_in'][k]) for k in G6)
             if r['loader']=='forge': assert 'META-INF/mods.toml' in names and any(n.endswith('.class') for n in names)
             elif r['loader']=='fabric': assert 'fabric.mod.json' in names; json.loads(z.read('fabric.mod.json'))
             else: assert 'META-INF/mods.toml' in names and 'META-INF/neoforge.mods.toml' in names and any(n.endswith('.class') for n in names)
