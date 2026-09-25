@@ -1,11 +1,13 @@
 Catalogue Translation Expansion 1.0.1
 
-108 primary real-language locale codes across supported history.
-101 primary locale codes in current Minecraft 26.2 policy.
-51 locales have complete 36-key modern-union translations.
+109 locale codes across supported history (108 previous primary locales and custom Marathi).
+101 prior primary locale codes plus Marathi custom language in Minecraft 26.3.
+52 locales have complete 36-key modern-union translations.
 Other low-confidence/rare locales use documented English fallback.
 Novelty/fantasy and regional/orthographic duplicates are deferred.
 
-QA: 13 JARs structurally built; JSON and %s placeholders validated; loader/resource metadata inspected; checksums generated.
+Previous QA: 13 JARs structurally built; JSON and %s placeholders validated; loader/resource metadata inspected; checksums generated.
 Reproducibility QA: two consecutive release builds produced identical JAR checksums, build report and combined ZIP hash in GitHub Actions.
 Runtime caveat: representative Minecraft/loader launches remain useful before or after publication, especially grouped-range endpoints.
+
+Minecraft 26.3 extension: two dedicated Fabric/NeoForge JARs with Marathi Catalogue (34 active keys) and Minecraft (8,559 keys) in each JAR. Total artifacts: 15, including the 13 previous version groups. Native review of 722 machine-assisted vanilla strings and in-game tests are still required.

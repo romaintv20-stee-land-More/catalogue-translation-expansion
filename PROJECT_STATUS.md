@@ -2,10 +2,17 @@
 
 > **Start here in a new chat.** This is the canonical handoff for maintaining the project without relying on previous ChatGPT conversation history.
 
-Last synchronized: **2026-09-17**  
+Last synchronized: **2026-09-25**  
 Release line: **1.0.1**  
 Upstream: **MrCrayfish/Catalogue**  
-Latest audited upstream branch: **`multiloader/26.2`** — Catalogue **1.12.3**, Minecraft **26.2**.
+Latest audited upstream branch: **`multiloader/26.3`** (commit `ef110482`) — Catalogue **1.12.3**, Minecraft **26.3** (GitHub release September 17; Fabric and NeoForge only).
+
+## September 25, 2026 — Minecraft 26.3 and Marathi update
+
+- Official Catalogue 26.3 (Fabric and NeoForge only) retains **exactly the same 34 English localization keys and values** as 26.2; G6 remains unchanged. There is no Forge 26.3 release.
+- Add **Marathi (`mr_in`)** as the 52nd complete 36-key modern-union language, in addition to the 101 previously selected primary languages; the historical locale union increases from 108 to **109**.
+- Add **two dedicated** 26.3 JARs, one each for Fabric and NeoForge, rather than extending the 1.20.4–26.2 grouped artifacts with mismatched vanilla translations. Each new JAR embeds all **8,559** Minecraft 26.3 Marathi keys (reused directly from the user's Beyond & More-derived translation) and all 34 active G6 Catalogue keys. The JAR itself registers `मराठी` in the Minecraft language menu. **No separate Minecraft resource-pack ZIP** is required.
+- Total planned artifacts: **15** (previous 13 plus 2 dedicated 26.3 candidates). Minecraft 26.3 requires Java 25. New/changed machine-assisted Marathi text needs native review and actual in-game tests remain open.
 
 ## Purpose
 
@@ -30,16 +37,16 @@ The cross-generation union contains **36 distinct keys**. Reuse a translation on
 - First pass uses one primary locale per language.
 - Regional/orthographic duplicates are deferred for later (`en_gb`, `fr_ca`, `pt_pt`, `zh_tw`, etc.).
 - Novelty/fantasy entries are deferred/excluded (Pirate Speak, Upside Down English, LOLCAT, Quenya, Klingon, etc.).
-- Historical primary-locale union used by the build: **108 locale codes**.
-- Current Minecraft 26.2 primary selection: **101 locale codes**.
-- **51 locales** currently have complete translations for the full 36-key modern union.
+- Historical primary-locale union used by the build: **109 locale codes**.
+- Current Minecraft 26.2 primary selection: **102 locale codes (101 previous primary locales plus custom Marathi)**.
+- **52 locales** currently have complete translations for the full 36-key modern union.
 - Low-confidence/rare locales deliberately fall back to English rather than receiving speculative translations.
 
 Full modern translations are stored as JSON in `translations/modern-union/`. G1 historical translations are stored in `translations/g1-legacy-forge-3/`.
 
 Complete modern locales:
 
-`af_za ar_sa az_az be_by bg_bg bs_ba ca_es cs_cz da_dk de_de el_gr es_es et_ee eu_es fa_ir fi_fi fil_ph fr_fr gl_es he_il hi_in hr_hr hu_hu hy_am id_id is_is it_it ja_jp ka_ge kk_kz ko_kr lt_lt lv_lv ms_my nl_nl no_no pl_pl pt_br ro_ro ru_ru sk_sk sl_si sq_al sr_sp sv_se ta_in th_th tr_tr uk_ua vi_vn zh_cn`
+`af_za ar_sa az_az be_by bg_bg bs_ba ca_es cs_cz da_dk de_de el_gr es_es et_ee eu_es fa_ir fi_fi fil_ph fr_fr gl_es he_il hi_in hr_hr hu_hu hy_am id_id is_is it_it ja_jp ka_ge kk_kz ko_kr lt_lt lv_lv mr_in ms_my nl_nl no_no pl_pl pt_br ro_ro ru_ru sk_sk sl_si sq_al sr_sp sv_se ta_in th_th tr_tr uk_ua vi_vn zh_cn`
 
 Added as complete modern locales for **1.0.1**: `af_za az_az be_by bs_ba el_gr eu_es fa_ir hy_am is_is ka_ge kk_kz sq_al ta_in`.
 
@@ -49,7 +56,7 @@ Do not overwrite an official Catalogue key simply for stylistic consistency. The
 
 Historical upstream pattern: early branches include `de_de` and `it_it`; later G1 branches also include `pl_pl` and `zh_cn`; modern branches commonly include `de_de`, `pl_pl`, `zh_cn`, with `en_au` and later `ru_ru` appearing in newer versions.
 
-## Release strategy — 13 JARs
+## Release strategy — 15 JARs
 
 The project deliberately groups compatible versions instead of publishing about 57 per-version/per-loader files.
 
@@ -68,6 +75,8 @@ The project deliberately groups compatible versions instead of publishing about 
 | Fabric | 1.20.1 | dedicated |
 | Fabric | 1.20.4 → 26.2 | grouped |
 | NeoForge | 1.20.4 → 26.2 | grouped |
+| Fabric | 26.3 | dedicated; Catalogue + Minecraft Marathi in one JAR |
+| NeoForge | 26.3 | dedicated; Catalogue + Minecraft Marathi in one JAR |
 
 Important upstream facts:
 - **Minecraft 1.21.5 is a genuine Catalogue target.** Repository history contains a real 1.21.5 update/release even though the current head of the old `multiloader/1.21.5` branch later points at 1.21.6. Historical target decisions must use commits/releases, not only the present branch head.
@@ -77,7 +86,7 @@ Important upstream facts:
 
 ## Audited Minecraft resource formats
 
-`1.16.5=6`, `1.17.1=7`, `1.18.2=8`, `1.19–1.19.2=9`, `1.19.3=12`, `1.19.4=13`, `1.20–1.20.1=15`, `1.20.4=22`, `1.20.5–1.20.6=32`, `1.21–1.21.1=34`, `1.21.3=42`, `1.21.4=46`, `1.21.5=55`, `1.21.6=63`, `1.21.7–1.21.8=64`, `1.21.9–1.21.10=69`, `1.21.11=75`, `26.1=84`, `26.2=88`.
+`1.16.5=6`, `1.17.1=7`, `1.18.2=8`, `1.19–1.19.2=9`, `1.19.3=12`, `1.19.4=13`, `1.20–1.20.1=15`, `1.20.4=22`, `1.20.5–1.20.6=32`, `1.21–1.21.1=34`, `1.21.3=42`, `1.21.4=46`, `1.21.5=55`, `1.21.6=63`, `1.21.7–1.21.8=64`, `1.21.9–1.21.10=69`, `1.21.11=75`, `26.1=84`, `26.2=88`, `26.3=97.1`.
 
 Grouped modern packs include compatibility metadata for both the older `supported_formats` era and the newer `min_format` / `max_format` era.
 
@@ -93,7 +102,7 @@ Requirements: Python 3.11+ and JDK 21+ (`javac` must support `--release 8` and `
 python scripts/build_release.py
 ```
 
-The script reads the translation JSON files, generates the six localization generations, compiles tiny loader entrypoints against local annotation stubs, builds all 13 JARs, validates JSON/placeholders/metadata, creates checksums and writes a combined ZIP. Archive timestamps are normalized so identical source input produces identical release archives. GitHub Actions performs two consecutive builds and compares JAR checksums, the build report and the combined ZIP hash.
+The script reads the translation JSON files, generates the six localization generations, compiles tiny loader entrypoints against local annotation stubs, builds all 15 JARs, validates JSON/placeholders/metadata, creates checksums and writes a combined ZIP. Archive timestamps are normalized so identical source input produces identical release archives. GitHub Actions performs two consecutive builds and compares JAR checksums, the build report and the combined ZIP hash.
 
 ## 1.0.1 scope
 
@@ -106,9 +115,9 @@ The script reads the translation JSON files, generates the six localization gene
 - make ZIP/JAR output genuinely reproducible by normalizing archive timestamps;
 - update the CI workflow to current stable GitHub Actions majors and verify reproducibility automatically.
 
-## Current QA status
+## QA status
 
-Version **1.0.1** passes the GitHub Actions build and scripted QA as **13 artifacts** with `LEGACY=91`, `CURRENT=101`, `MASTER=108` and `FULL_TRANSLATED=51`. JSON syntax, `%s` placeholders and loader/resource metadata are validated. Two consecutive CI builds produce identical JAR checksums, identical `build-report.json` and an identical combined ZIP hash.
+Version **1.0.1** passes the GitHub Actions build and scripted QA as **13 artifacts** before the 26.3/Marathi additions, with `LEGACY=91`, `CURRENT=101`, `MASTER=108` and `FULL_TRANSLATED=51`. JSON syntax, `%s` placeholders and loader/resource metadata are validated. Two consecutive CI builds produce identical JAR checksums, identical `build-report.json` and an identical combined ZIP hash.
 
 Runtime testing remains useful for representative endpoints, especially Forge 1.16.5, Forge 1.20.4/1.21.11, Fabric 1.19.3/1.20.4/26.2, and NeoForge 1.20.4/26.2. If a grouped metadata range is rejected, split only that affected group.
 
@@ -116,7 +125,7 @@ Runtime testing remains useful for representative endpoints, especially Forge 1.
 
 1. Read this file.
 2. Read `docs/UPDATING.md` and `docs/RELEASE_MATRIX.md`.
-3. Check the current upstream Catalogue branches/releases before assuming 26.2 is still latest.
+3. Track the official upstream Catalogue branches/releases beyond current verified 26.3.
 4. Diff the upstream English localization against the six-generation model.
 5. Reuse translations only for unchanged English meaning; translate new/changed strings.
 6. Audit Minecraft's language list for new/removed locales and apply the real-language/primary-locale policy.
