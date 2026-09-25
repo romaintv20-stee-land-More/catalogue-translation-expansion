@@ -12,17 +12,15 @@ Then read [`docs/UPDATING.md`](docs/UPDATING.md) before adding support for a new
 
 - audited Minecraft span: **1.16.5 → 26.3** (as of 2026-09-17)
 - **6** localization generations: 3 / 11 / 14 / 30 / 32 / 34 keys
-- **15** release JARs (13 previous groups plus dedicated 26.3 Fabric and NeoForge builds)
-- **109** locale codes across the supported union (108 previous primary locales plus custom Marathi)
-- **101** previous primary locales plus Marathi (`mr_in`) as an additional custom Minecraft language
-- **52** complete modern-union translations (including Marathi)
+- **15** release JARs (13 original groups plus separate 26.3 Fabric and NeoForge)
+- **108** primary real-language locale codes across the historical union
+- **101** primary locales in the current 26.2 policy
+- **51** complete modern-union translations
 - documented English fallback for low-confidence rare locales
 
-## Marathi all-in-one — Minecraft 26.3
+## Minecraft 26.3 compatibility
 
-The two dedicated **Fabric and NeoForge 26.3** add-on JARs embed Marathi (`mr_in`) translations for both Catalogue (all 34 active G6 keys) and Minecraft 26.3 (all 8,559 official vanilla keys). They also register `मराठी` in `pack.mcmeta`. One JAR per loader goes in `mods/`, alongside the original Catalogue mod; **no separate resource-pack ZIP is needed**. There is no upstream Forge build for Minecraft 26.3.
-
-The Minecraft Marathi source is reused from the user's Beyond & More-derived [Controlling Language Expansion](https://github.com/romaintv20-stee-land-More/controlling-language-expansion) translation, with 722 machine-assisted new/changed strings. The Marathi translation requires native-language review, and the two 26.3 loader variants require in-game testing before public release. See [the Marathi 26.3 release notes](docs/MARATHI_ALL_IN_ONE.md).
+Catalogue 1.12.3 supports Minecraft 26.3 on Fabric and NeoForge. The 34 official English translation keys are unchanged from 26.2, so the two dedicated 26.3 JARs reuse the existing G6 translations. **No new languages or vanilla Minecraft translations** are included in this update: the project retains 108 historical locales, 101 current primary languages, and 51 complete modern translations.
 
 ## Build
 

@@ -21,10 +21,10 @@ Inspect upstream locale files for the target branch. Generated payloads should n
 - G1 historical translations: `translations/g1-legacy-forge-3/`
 - full modern translations: `translations/modern-union/`
 
-Every modern-union file must contain the complete 36-key union. Marathi (`mr_in`) uses Beyond & More-derived vanilla Minecraft strings in dedicated 26.3 JARs; do not inject those 26.3 strings into earlier grouped versions. Preserve `%s` placeholders exactly. For low-confidence languages, English fallback is preferred to invented wording.
+Every modern-union file must contain the complete 36-key union. Preserve `%s` placeholders exactly. For low-confidence languages, English fallback is preferred to invented wording.
 
 ## 6. Preserve grouping where safe
-The target is 15 release JARs (13 historical groups plus dedicated 26.3 Fabric and NeoForge all-in-one Marathi JARs). Only split a grouped JAR when loader metadata, Catalogue dependency ranges, Minecraft dependency ranges or resource-pack compatibility actually break.
+The target is 15 release JARs: 13 original groups plus dedicated 26.3 Fabric and NeoForge builds. The 26.3 extension reuses G6 with no new languages. Only split a grouped JAR when loader metadata, Catalogue dependency ranges, Minecraft dependency ranges or resource-pack compatibility actually break.
 
 ## 7. Build and QA
 ```bash
